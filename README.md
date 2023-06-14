@@ -1,22 +1,27 @@
-# next-template
+# coheneyal.com
 
-A Next.js 13 template for building apps with Radix UI and Tailwind CSS.
+My personal website and blog.
 
-## Usage
+Started from [@shadcn](shadcn.com) [`next-template`](https://github.com/shadcn/next-template),
+using Radix UI, Tailwind CSS, and shadcn UI.
+
+## Getting Started
+
+1. Fork this repository
+2. Clone your forked repository
+3. Install dependencies:
 
 ```bash
-npx create-next-app -e https://github.com/shadcn/next-template
+$ npm install
 ```
 
-## Features
+4. Run the development server:
 
-- Radix UI Primitives
-- Tailwind CSS
-- Fonts with `next/font`
-- Icons from [Lucide](https://lucide.dev)
-- Dark mode with `next-themes`
-- Automatic import sorting with `@ianvs/prettier-plugin-sort-imports`
-- Tailwind CSS class sorting, merging and linting.
+```bash
+$ npm run dev
+```
+
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## License
 
