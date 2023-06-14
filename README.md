@@ -5,6 +5,13 @@ My personal website and blog.
 Started from [@shadcn](https://shadcn.com) [`next-template`](https://github.com/shadcn/next-template),
 using Radix UI, Tailwind CSS, and shadcn UI.
 
+## Inspiration
+
+- [shadcn.com](https://shadcn.com)
+- [leerob.io](https://leerob.io)
+- [joshwcomeau.com](https://joshwcomeau.com)
+- [Michael Lin](https://michaellin.io/)
+
 ## Getting Started
 
 1. Fork this repository
