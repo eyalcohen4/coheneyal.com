@@ -1,4 +1,5 @@
 import {
+  Linkedin,
   LucideProps,
   Moon,
   SunMedium,
@@ -12,6 +13,7 @@ export const Icons = {
   sun: SunMedium,
   moon: Moon,
   twitter: Twitter,
+  linkedin: Linkedin,
   logo: (props: LucideProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
@@ -28,4 +30,5 @@ export const Icons = {
       ></path>
     </svg>
   ),
+  stackOverflow: (props: LucideProps) => <div>S</div>,
 }

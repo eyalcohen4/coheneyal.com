@@ -1,5 +1,8 @@
+"use client"
+
 import * as React from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 import { NavItem } from "@/types/nav"
 import { siteConfig } from "@/config/site"
@@ -11,16 +14,12 @@ interface MainNavProps {
 }
 
 export function MainNav({ items }: MainNavProps) {
+  const pathname = usePathname()
+
   return (
-    <div className="flex gap-6 md:gap-10">
-      <Link href="/" className="hidden items-center space-x-2 md:flex">
-        <Icons.logo className="h-6 w-6" />
-        <span className="hidden font-bold sm:inline-block">
-          {siteConfig.name}
-        </span>
-      </Link>
+    <div className="flex w-full md:flex">
       {items?.length ? (
-        <nav className="hidden gap-6 md:flex">
+        <nav className="w-full gap-4 md:gap-6 flex md:justify-start">
           {items?.map(
             (item, index) =>
               item.href && (
@@ -28,11 +27,19 @@ export function MainNav({ items }: MainNavProps) {
                   key={index}
                   href={item.href}
                   className={cn(
-                    "flex items-center text-lg font-semibold text-muted-foreground sm:text-sm",
+                    "flex flex-col !no-underline text-sm md:text-md",
                     item.disabled && "cursor-not-allowed opacity-80"
                   )}
                 >
-                  {item.title}
+                  <span
+                    className={cn(
+                      `font-medium ${
+                        item.href === pathname ? "underline" : ""
+                      } underline-offset-4 hover:underline`
+                    )}
+                  >
+                    {item.title}
+                  </span>
                 </Link>
               )
           )}

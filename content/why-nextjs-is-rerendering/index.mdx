@@ -1,0 +1,58 @@
+---
+title: Why Does Next.js Is Re-Rendering the Whole Page On Route Change and How To Solve It
+description: A Next.js very important knoweldge.
+date: "2020-09-17T22:12:03.284Z"
+tags: Next.js, JavaScript, DOM
+image: "nextjs/render.jpg"
+---
+
+Today I encountered a weird behavior in one of my Next.js apps, and it was my fault.
+
+I tried navigating to a dynamic route, and the whole app re-rendered, even though it shouldn't. I solved it, and I hope you’ll be able to do so too.
+
+## Why?
+
+Say we a have [dynamic route](https://nextjs.org/docs/routing/dynamic-routes),
+stored under a folder named posts, with the parameter of the id.
+
+The created page URL should be: `posts/[id]`.
+
+```
+-- pages
+---- posts
+------- [id]
+```
+
+##### The Folder Structure
+
+In another component, I've tried to do the following:
+
+```jsx
+function AnotherPage() {
+  return <Link href="/posts/1">Post Number 1</Link>
+}
+```
+
+Seems pretty straight forward.
+But when I clicked the Link tag, the whole page re-rendered.
+
+I looked for a sultion and apperantly, by next.js docs:
+
+> A Link to a dynamic route is a combination of the href and as props.
+
+What I should've done is;
+
+```jsx
+function AnotherPage() {
+  return (
+    <Link href="/posts/[id]" as="/posts/1">
+      Post Number 1
+    </Link>
+  )
+}
+```
+
+That's it, that's the issue.
+
+By the way, from version 9.5.2 of Next.js - You don't need the `as` property. You can use only the `href`.
+Guess what was my version as of writing? 9.5.1 :)

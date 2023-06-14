@@ -1,0 +1,248 @@
+---
+title: Building a Serverless Job Board with Next.js and Contentful
+date: "2020-07-18T22:12:03.284Z"
+description: "This week I created a job board with Next.js and Contentful. It took me 5 hours - learn how to do so yourself."
+image: "nextjs/job-board.png"
+---
+
+This week I built from scratch a [job board](https://reactnative.co.il).
+
+It focuses primarily on React Native jobs in Israel.
+I've used NextJS and Contentful, and it took me 5 hours only.
+I'll teach you how to do so too.
+
+When I started, I checked for no-code tools to help me build it quickly. Everything seems so pricey for just building a job board.
+
+Web Flow will cost something around 30 bucks and with Airtable or something similar, it might even cost more.
+
+Then I started to build a custom database for that, using MongoDB.
+But it seems like so much job (pun intended) for such a simple website.
+With Contentful free tier and Vercel free for developers deployments, life’s amazing.
+
+## What the hack is NextJS and Contentful?
+
+According to its website, Contentful is an API-first Content Management Platform. Exactly what we need.
+Built by Vercel, Next.js is a production-ready framework that helps you create fast React apps.
+
+According to its [website](https://contentful.com), Contentful is an API-first Content Management Platform. Exactly what we need.
+
+Built by [Vercel](https://vercel.com/), Next is a production-ready framework that helps you create fast React apps.
+
+## Prerequisites
+
+- I assume you have basic Javascript or React Knowledge.
+- You should have Node installed on your computer.
+- [Signup for contentful community space](https://www.contentful.com/sign-up/).
+- [Vercel CLI Instsalled](https://vercel.com/download) (npm i -g vercel)
+
+## Step 1: Contentful JobPost Entity
+
+The most important entity on our website is a Job Post.
+
+[Go to Cotnenful dashboard](https://app.contentful.com/), and first [create a new space](https://www.contentful.com/faq/basics/#how-do-i-create-a-space).
+
+Then, from your Space Home, navigate to Content Model, and click on `Add Content Type`
+A form should appear.
+Enter JobPost for the name, and jobPost for the API Identifier.
+
+<Image src={`/images/contentful/content-type.png`} width={1600} height={840} />
+
+Click on Create.
+
+Now, add the following fields to your content model with the correct types:
+
+```jsx
+  title: Text -> Short Text
+  company: Text -> Short Text
+  link: Text -> Short Text
+  location: Text -> Short Text
+  companyImage: Media
+  createdAt: Date & Time
+```
+
+Your JobPost Content Model should look like this:
+
+<Image src={`/images/contentful/content-model.png`} width={1600} height={840} />
+
+Now we'll need to grab our API Keys in order to request the JobPosts from contentful.
+Click the Settings tab and choose the API Keys option, then click the `Add API Key` button.
+
+Good to go!
+We made everything we need in contentful.
+Look how easy is that to create content.
+
+## Step 2: Creating the NextJS App
+
+At your projects folder, create a new folder and navigate inside it:
+
+```
+$ mkdir my-custom-job-board && cd my-custom-job-board
+```
+
+Now let's initialize the project and install the dependencies we need.
+
+```bash
+$ npm init -y
+$ npm install --save next react react-dom contentful
+```
+
+Create the required folders and files to work with next.js:
+
+```bash
+$ mkdir pages
+$ touch pages/index.js
+```
+
+Good job so far.
+
+Now open your favorite code editor, and in `package.json`, add this 2 scripts, which tells NPM how to run our code:
+
+```json
+{
+    ...
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build"
+    }
+}
+```
+
+Amazing! Now let's hack a website.
+
+## Step 3: Contentful Client
+
+For interacting with our Headless CMS through the API,
+we'll need to create a contentful client in our code.
+
+First, we'll need to let contentful know who we are.
+Because it's a secret to the outer world (we don't want people to use our contentful credentials), Let's add Environment Variables to our project.
+
+Grab your Contentful space id from `Settings -> General Settings -> Space ID` from your contentful dashboard.
+
+Now let's tell Vercel to use the variables in build time.
+Create a `vercel.json` file in the root folder,
+and inside it paste this.
+
+Don't forget to change your contentful space id and API access token we grab earlier!
+
+```json
+{
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_CONTENTFUL_SPACE_ID": "@contentful_space_id",
+      "NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN": "@contentful_access_token"
+    }
+  }
+}
+```
+
+And update vercel CLI:
+
+```
+$ vercel secrets add contentful_space_id your-space-id
+$ vercel secrets add contentful_access_token your-access-token
+```
+
+Great.
+Now we also want to use these in development, so create a file named `.env.local`,
+and enter this inside it:
+
+```
+NEXT_PUBLIC_CONTENTFUL_SPACE_ID=your-space-id
+NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=your-access-token
+```
+
+Amazing!
+We can finally write the code.
+
+At your index.js file,
+Create the contentful client to use their amazing API.
+
+```js
+import contentful from "contentful"
+
+const client = createClient({
+  space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID,
+  accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN,
+})
+```
+
+In the next steps, we'll fetch the jobs and create the UI and fetch the jobs.
+
+## Step 4: Home Page Component
+
+Under our client, let's add the Home Page Component.
+Paste this code, and we'll explain it right away.
+
+```js
+import React, { useEffect, useState } from "react"
+import { createClient } from "contentful"
+
+const client = createClient({
+  space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID,
+  accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN,
+})
+
+async function fetchJobPosts() {
+  const entries = await client.getEntries()
+  if (entries.items) return entries.items.map(({ fields }) => fields)
+  console.log(`Error getting Entries for ${contentType.name}.`)
+}
+
+function HomePage() {
+  const [jobPosts, setJobPosts] = useState([])
+
+  useEffect(() => {
+    async function getJobPosts() {
+      const posts = await fetchJobPosts()
+      setJobPosts([...posts])
+    }
+
+    getJobPosts()
+  }, [])
+
+  return (
+    <div>
+      <h1>My Job Board</h1>
+      {jobPosts.map((job) => (
+        <div>
+          <img src={job.companyImage} />
+          <a href={job.link}>
+            {job.title} - {job.company}
+          </a>
+          <p>{job.location}</p>
+          <p>{job.createdAt}</p>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export default HomePage
+```
+
+What's going on here?
+
+We creating a function that returns our JobPost items, called fetchJobPosts.
+Our job (again, pun) is to send a request through the contentful client we created earlier, and parse the items to return only their fields.
+
+Then we define the HomePage component by creating a new function with the same name.
+At the component 1 line, we defined a react state for our jobs. It will start as an empty array.
+
+Later, we define an effect which will run on the component mount (thanks to the empty array as the second argument).
+Inside it, we are calling to getPosts, which is an asynchronous function who call to fetchJobPosts, and set the jobs in the state.
+
+At the JSX part of our component, we go over each job, and render it to the screen, while linking to the actual job post.
+
+## Step 5: Deploy
+
+Thanks to the giants at Vercel, we can use their amazing tool to deploy our job board to production.
+All we need is to run this command in our terminal, and our site will be live on the internet.
+
+```
+$ now --prod
+```
+
+## Conclusion
+
+That's it - You just created a NextJS job board.

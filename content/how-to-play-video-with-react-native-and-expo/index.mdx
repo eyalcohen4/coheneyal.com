@@ -1,0 +1,112 @@
+---
+title: How To Play Video With React Native And Expo
+date: "2020-06-15T22:12:03.284Z"
+description: "A step by step guide to rendering video in React Native using Expo."
+image: "reactnative-video/video.webp"
+---
+
+**You can check out the full source code** [**here**](https://github.com/eyalcohen4/react-native-video-sample)**!**
+
+# Prerequisites
+
+- Run our App: A mobile phone with [Expo](https://expo.io) (SDK for react-native) app installed - Android or [IOS](https://itunes.apple.com/app/apple-store/id982107779?ct=www&mt=8) / a Mac, where we can easily use the simulator / [Genymotion emulator](https://www.genymotion.com/fun-zone/)
+- Up and running Node and [NPM](https://docs.npmjs.com/getting-started/installing-node) / [Yarn](https://yarnpkg.com/lang/en/docs/install/) installed on your machine, for managing our packages and generate the app (We’ll use NPM), And a Terminal access.
+- Having some basic [React](https://reactjs.org/) knowledge.
+- You are passionate about building native apps with Javascript!
+
+# Step 1 — Scaffolding react native app
+
+You can skip this step if you have already used create-react-native-app.
+
+Thanks to the giants at Facebook, the react native community, and Expo team, we can stand on top of them and with [Create React Native App](https://github.com/react-community/create-react-native-app), skip the configuration phase, and generating all we need to run react-native application, using just one click!
+
+If you didn’t installed create-react-native-app before, run this command on your terminal:
+
+`$ npm install -g create-react-native-app`
+
+Now we can use the tool to create our video app!
+
+`$ create-react-native-app my-video`
+
+after minute or two of progress, a new folder created in our current directory with everything we need. We’ll `cd` i nto the new folder, and start the app using these commands:
+
+```terminal
+$ cd my-video
+$ npm start
+# For Mac users, you can run this instead, and the simulator will open.
+$ npm run ios
+# For genymotion users (Linux/Windows), you can this:
+# npm run android
+```
+
+A big QR code is now printed on our terminal, and we can use the Expo app Scan QR Code button to run our app.
+
+If you see a screen with text on your mobile phone, we’re ready to go.
+
+## Step 2 — Rendering the Expo `<Video>` Component
+
+> Expo is a free and open source toolchain built around React Native to help you build native iOS and Android projects using JavaScript and React.
+
+The Expo SDK, which include components and many more cool stuff, come built-in with create-react-native-app. We are going to use the [Video Component](https://docs.expo.io/versions/latest/sdk/video.html) from it.
+
+Let’s head into our App.js, and import the Video component and the Dimensions object, as in lines 2-3.
+
+Copy & Replace your App class with the following:
+
+Let’s take a quick look at the code. The `App` class is the first component in our app which created by create-react-native-app.
+
+We’ve replaced the default text under the `<View>` tag with the `<Video>` we imported before. Video get many props, but in order to play a video, we only need those 4.
+
+`source` is the important one — if it was `null`, the component wouldn’t display nothing.
+
+You can also play a local file using `require('path/to/file')`, but were using an online .mp4 file. The `uri` property let the component know that we are going to load video from the internet.
+
+`shouldPlay` describing if the media is supposed to play (obviously), and we’re also need the `style` prop to set height & weight, or the video component would play but we couldn’t see nothing. finally, `resizeMode` describing how the video should be scaled for display in the component view bounds.
+
+After all of this, we are now playing a video in react-native!
+
+## Step 3 — Control Bar Strip
+
+Playing video by itself is really cool, but users need to control it, so let’s add A control bar!
+
+We’ll wrap our video component with a view container, and add a black strip for the bar.
+
+At the bottom of App.js, we’re going to add some styles — replace this with your styles variable:
+
+[React native use the Flex box algorithm for layout](https://facebook.github.io/react-native/docs/flexbox.html), and by default the [flexDirection](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction) is set to ‘column’.
+
+If we look at the above code, we’re applying the controlBar object in our styles to a new view, and [“absolute positioning”](https://developer.mozilla.org/en-US/docs/Web/CSS/position) it to the bottom of the container.
+
+We’re also changing the flexDirection to row (for the icons to be side by side), aligning the items to center both vertical and horizontal with `alignItems` and `justifyContent`, and set a black background color with 0.5 opacity.
+
+## Step 4 — Play, Pause And Mute
+
+In order to control the playback status and mute a video, we want to add some [state](https://reactjs.org/docs/state-and-lifecycle.html) to our component. and methods to handle the functionality, by changing the `shouldPlay` and `mute` property.
+
+Now lets add some icons in our strip, and apply the state to our `<Video>` component. we’ll use the expo/vector-icons package, and you should install it by running the following in the Terminal.
+`$ npm install --save @expo/vector-icons`
+
+At line 2, we’re import the MaterialIcons package from ‘@expo/vector-icons’.
+
+Later, at the render function, line 14, we set the `shouldPlay` prop of the `<Video>` component to our `shouldPlay` state, and we’re adding an icon to the strip bar, which on press will trigger `handlePlayAndPause`.
+
+The same concept applied to the `isMuted` prop at line 17, and we control him by the press on the icon, which triggering handleVolume (line 24).
+
+Well Done!
+
+## Conclusion
+
+We’ve now played a video in React Native, added a strip bar, and controlled the `shouldPlay` and `isMuted` props!
+
+At step 1, we created a [React Native app](https://facebook.github.io/react-native/) from scratch, with [create-react-native-app](https://github.com/react-community/create-react-native-app) CLI.
+
+Later, we used the [Expo Video component](https://docs.expo.io/versions/latest/sdk/video.html) to play an online .mp4 video, and in step 3 we added a strip bar to the bottom of the video.
+
+At step 4, we used state, props, and methods to control the Playback status and the volume.
+
+**You can check out the full source code** [**here**](https://github.com/eyalcohen4/react-native-video-sample)**!**
+
+— — —
+
+You can find more about me at [Github](https://github.com/eyalcohen4), [Twitter](https://twitter.com/coheneyal4) or [Linkedin](https://www.linkedin.com/in/eyal-cohen-63096810a/).
+Thanks for [StartupStockPhotos](https://pixabay.com/en/users/StartupStockPhotos-690514/) for the picture.
