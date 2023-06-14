@@ -2,7 +2,7 @@
 
 My personal website and blog.
 
-Started from [@shadcn](shadcn.com) [`next-template`](https://github.com/shadcn/next-template),
+Started from [@shadcn](https://shadcn.com) [`next-template`](https://github.com/shadcn/next-template),
 using Radix UI, Tailwind CSS, and shadcn UI.
 
 ## Getting Started
