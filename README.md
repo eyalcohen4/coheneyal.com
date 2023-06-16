@@ -9,8 +9,9 @@ using Radix UI, Tailwind CSS, and shadcn UI.
 
 - [shadcn.com](https://shadcn.com)
 - [leerob.io](https://leerob.io)
+- [swyx.io](https://www.swyx.io/)
 - [joshwcomeau.com](https://joshwcomeau.com)
-- [Michael Lin](https://michaellin.io/)
+- [michaellin.io](https://michaellin.io/)
 
 ## Getting Started
 

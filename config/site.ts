@@ -26,6 +26,12 @@ export const siteConfig = {
       href: "/curation",
     },
   ],
+  talks: [
+    {
+      title: "Buntime: What is Bun?",
+      href: "https://www.youtube.com/watch?v=jnWECQZTHTk",
+    },
+  ],
   posts: [
     {
       title: "Why Does Next.js Is Re-Rendering the Whole Page On Route Change",

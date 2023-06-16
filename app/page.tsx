@@ -8,6 +8,7 @@ import { Posts } from "@/components/posts"
 import { ProfilePicture } from "@/components/profile-picture"
 import { Projects } from "@/components/projects"
 import { Subscribe } from "@/components/subscribe"
+import { Talks } from "@/components/talks"
 import { Work } from "@/components/work"
 
 export default function IndexPage() {
@@ -38,6 +39,7 @@ export default function IndexPage() {
       </div>
       <Posts />
       <Projects />
+      <Talks />
       <Work />
     </section>
   )

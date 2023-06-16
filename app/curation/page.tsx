@@ -1,6 +1,6 @@
 import React from "react"
 
-const Curation = ({ data, location }) => {
+const Curation = () => {
   return (
     <div className="prose dark:prose-invert prose-p:mb-0 prose-p:mt-0 prose-h2:mb-2">
       <h1 className="text-3xl font-bold text-white mb-4">My Cuarting Lists</h1>
@@ -20,10 +20,10 @@ const Curation = ({ data, location }) => {
             <p>
               An inspiring story from Bezos on what important. main quote is:
             </p>
-            <quote>
+            <q>
               "Jeff, one day you’ll understand that it’s harder to be kind than
               clever."
-            </quote>
+            </q>
           </li>
           <li>
             <a href="https://www.artlebedev.com/mandership/167/">
