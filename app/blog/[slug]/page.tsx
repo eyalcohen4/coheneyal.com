@@ -28,7 +28,7 @@ export async function generateMetadata({
   const { title, date, description, image } = post
   const slug = post._raw.flattenedPath
   const ogImage = image
-    ? `https://coheneyal.com/${slug}`
+    ? `https://coheneyal.com/${image}`
     : `https://coheneyal.com/api/og?title=${title}`
 
   return {
