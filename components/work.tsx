@@ -2,31 +2,34 @@ import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
 
+import { Section, SectionContent, SectionList, SectionTitle } from "./section"
 import { Badge } from "./ui/badge"
 
 export const Work = () => {
   return (
-    <div className="pt-8">
-      <h2 className="text-xl tracking-tight font-semibold">Experience</h2>
-      <div className="pt-4 space-y-8">
-        {siteConfig.experience.map((company) => (
-          <div key={company.name} className="block underline-offset-4">
-            <p className="text-md">{company.title}</p>
-            <div className="text-muted-foreground text-sm flex flex-col gap-1 w-auto">
-              <Link className="underline" href={company.link || ""}>
-                {company.name}
-              </Link>
-              <span>{company.date}</span>
+    <Section>
+      <SectionTitle>Experience</SectionTitle>
+      <SectionContent>
+        <SectionList>
+          {siteConfig.experience.map((company) => (
+            <div key={company.name} className="block underline-offset-4 mb-4">
+              <p className="font-bold mb-1">{company.title}</p>
+              <div className="mb-1 text-muted-foreground text-sm flex flex-col gap-1 w-auto">
+                <Link className="underline" href={company.link || ""}>
+                  {company.name}
+                </Link>
+                <span>{company.date}</span>
+              </div>
+              <div className="max-w-xl">
+                {company.tags?.map((tag) => (
+                  <Tag tag={tag} />
+                ))}
+              </div>
             </div>
-            <div className="max-w-xl">
-              {company.tags?.map((tag) => (
-                <Tag tag={tag} />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+          ))}
+        </SectionList>
+      </SectionContent>
+    </Section>
   )
 }
 

@@ -2,8 +2,7 @@ export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
   name: "Eyal Cohen",
-  description:
-    "Beautifully designed components built with Radix UI and Tailwind CSS.",
+  description: "Building software and writing about it",
   mainNav: [
     {
       title: "Home",
@@ -15,7 +14,7 @@ export const siteConfig = {
     },
     {
       title: "Newsletter",
-      href: "https://eyalcohen.substack.com/",
+      href: "https://coheneyal.substack.com/about",
     },
     {
       title: "Blog",
@@ -29,7 +28,10 @@ export const siteConfig = {
   talks: [
     {
       title: "Buntime: What is Bun?",
+      description:
+        "A lecture I gave about Bun during a JavaScript Israel Meetup",
       href: "https://www.youtube.com/watch?v=jnWECQZTHTk",
+      image: "/images/talks/buntime.jpg",
     },
   ],
   posts: [
@@ -137,7 +139,7 @@ export const siteConfig = {
       link: "https://lovestoriestv.com",
       name: "LoveStoriesTV",
       location: "Remote",
-      tags: ["React", "Redux"],
+      tags: ["React", "Redux", "Next.js", "Styled Components", "TypeScript"],
     },
     {
       title: "Software Consultant",
@@ -219,9 +221,9 @@ export const siteConfig = {
     },
   ],
   links: {
-    twitter: "https://twitter.com/",
+    twitter: "https://twitter.com/eyalc4",
     github: "https://github.com/eyalcohen4",
-    linkedin: "https://www.linkedin.com/in/eyalcohen",
-    stackoverflow: "https://www.linkedin.com/in/eyalcohen",
+    linkedin: "https://www.linkedin.com/in/eyal-cohen-63096810a/",
+    stackoverflow: "https://stackoverflow.com/users/5716723/eyal-cohen",
   },
 }

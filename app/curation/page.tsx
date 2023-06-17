@@ -2,17 +2,22 @@ import React from "react"
 
 const Curation = () => {
   return (
-    <div className="prose dark:prose-invert prose-p:mb-0 prose-p:mt-0 prose-h2:mb-2">
-      <h1 className="text-3xl font-bold text-white mb-4">My Cuarting Lists</h1>
-      <div className="text-gray-500">
-        <div className="mb-4 text-white">
-          <h2 className="text-xl font-bold">Inspire</h2>
-          <p className="text-lg">
+    <div className="w-full mt-8">
+      <div className="mb-5">
+        <h1 className="font-bold text-3xl mb-1">Curating List</h1>
+        <p className="text-muted-foreground">
+          Collections of links I wanted to save
+        </p>
+      </div>
+      <div className="prose dark:prose-invert prose-h2:m-1 prose-ul:p-0">
+        <div>
+          <h2>Inspire</h2>
+          <p>
             Things that inspired me the most and changed the way I live, think,
             or do.
           </p>
         </div>
-        <ul className="list-disc border-b mb-4">
+        <ul>
           <li>
             <a href="https://jamesclear.com/great-speeches/what-matters-more-than-your-talents-by-jeff-bezos">
               What Metters More Than Your Talent - Jeff Bezos
@@ -56,11 +61,11 @@ const Curation = () => {
             </p>
           </li>
         </ul>
-        <div className="mb-4 text-white">
-          <h2 className="text-xl font-bold">Methods</h2>
-          <p className="text-lg mb-0 mt-0">Methods I tend to follow</p>
+        <div>
+          <h2>Methods</h2>
+          <p>Methods I tend to follow</p>
         </div>
-        <ul className="list-disc border-b mb-4">
+        <ul>
           <li>
             <a href="https://www.alexandercowan.com/tutorial-personas-problem-scenarios-user-stories/">
               Personas and Design Thinking
@@ -71,11 +76,11 @@ const Curation = () => {
             </p>
           </li>
         </ul>
-        <div className="mb-4 text-white">
-          <h2 className="text-xl font-bold">Useful</h2>
-          <p className="text-lg">Things that I find useful in my life.</p>
+        <div>
+          <h2>Useful</h2>
+          <p>Things that I find useful in my life.</p>
         </div>
-        <ul className="list-disc mb-4">
+        <ul>
           <li>
             <a href="https://www.taniarascia.com/">Tania Rascia Blog</a>
             <p>Amazing content and guides for developers from Tanis Rascia.</p>

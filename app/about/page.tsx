@@ -1,14 +1,16 @@
 import React from "react"
+import Link from "next/link"
 import { Balancer } from "react-wrap-balancer"
 
+import { Intro } from "@/components/intro"
 import { ProfilePicture } from "@/components/profile-picture"
+import { Subscribe } from "@/components/subscribe"
 
 const About = () => {
   return (
-    <div className="px-8 md:px-0 pb-8 pt-6 space-y-8 max-w-2xl">
-      <ProfilePicture />
+    <section className="md:px-0 pb-8 pt-6 space-y-12">
+      <Intro />
       <div className="prose dark:prose-invert">
-        <p className="text-xl font-bold">Hey! I'm Eyal from Tel Aviv.</p>
         <h3>TL;DR </h3>
         <p>
           <Balancer>
@@ -91,7 +93,8 @@ const About = () => {
           </Balancer>
         </p>
       </div>
-    </div>
+      <Subscribe />
+    </section>
   )
 }
 

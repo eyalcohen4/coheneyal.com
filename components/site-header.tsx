@@ -1,15 +1,14 @@
 import Link from "next/link"
+import { Mail } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
 import { MainNav } from "@/components/main-nav"
 
-import { ProfilePicture } from "./profile-picture"
-
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background px-8 md:px-0">
+    <header className="sticky top-0 z-40 w-full border-b bg-background md:px-0">
       <div className="flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <MainNav items={siteConfig.mainNav} />
         <Socials />
@@ -68,6 +67,17 @@ function Socials() {
           >
             <Stackoverflow />
             <span className="sr-only">Stackoverflow</span>
+          </div>
+        </Link>
+        <Link href="mailto:eyal@coheneyal.com">
+          <div
+            className={buttonVariants({
+              size: "sm",
+              variant: "ghost",
+            })}
+          >
+            <Mail />
+            <span className="sr-only">Email</span>
           </div>
         </Link>
       </nav>

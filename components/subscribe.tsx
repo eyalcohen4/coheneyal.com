@@ -9,10 +9,10 @@ export function Subscribe() {
       asChild
       size="sm"
       type="button"
-      className="h-8 flex gap-2 items-center justify-center w-auto"
+      className="h-10 flex gap-2 items-center justify-center w-auto"
     >
       <Link
-        href="https://twitter.com/eyalyoli"
+        href="https://coheneyal.substack.com/about"
         target="_blank"
         rel="noopener noreferrer"
         className="h-8 flex gap-2 items-center justify-center w-auto decoration-none"
