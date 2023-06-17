@@ -1,14 +1,6 @@
-import Link from "next/link"
-import { Bell, Mail } from "lucide-react"
-import { Balancer } from "react-wrap-balancer"
-
-import { siteConfig } from "@/config/site"
-import { Button } from "@/components/ui/button"
 import { Intro } from "@/components/intro"
 import { Posts } from "@/components/posts"
-import { ProfilePicture } from "@/components/profile-picture"
 import { Projects } from "@/components/projects"
-import { Subscribe } from "@/components/subscribe"
 import { Talks } from "@/components/talks"
 import { Work } from "@/components/work"
 

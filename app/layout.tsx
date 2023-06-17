@@ -9,6 +9,13 @@ import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata: Metadata = {
+  openGraph: {
+    images: [
+      {
+        url: "/me.png",
+      },
+    ],
+  },
   title: {
     default: siteConfig.name,
     template: `%s - ${siteConfig.name}`,
