@@ -63,7 +63,7 @@ export default async function Blog({ params }) {
   }
 
   return (
-    <section className="md:py-8 md:px-0 w-full prose dark:prose-invert">
+    <section className="pt-8 md:py-8 md:px-0 w-full prose dark:prose-invert">
       <div>
         <h1 className="font-bold text-3xl">
           <Balancer>{post.title}</Balancer>
