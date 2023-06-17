@@ -33,7 +33,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
       <html lang="en" suppressHydrationWarning>
-        <head />
+        <head>
+          <script
+            defer
+            data-domain="coheneyal.com"
+            src="https://plausible.io/js/script.js"
+          ></script>
+        </head>
         <body
           className={cn(
             "min-h-screen bg-background font-sans antialiased px-8 md:px-0",
