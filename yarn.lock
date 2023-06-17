@@ -4830,7 +4830,7 @@
   "resolved" "https://registry.npmjs.org/shebang-regex/-/shebang-regex-3.0.0.tgz"
   "version" "3.0.0"
 
-"shiki@*":
+"shiki@*", "shiki@^0.14.2":
   "integrity" "sha512-ltSZlSLOuSY0M0Y75KA+ieRaZ0Trf5Wl3gutE7jzLuIcWxLp5i/uEnLoQWNvgKXQ5OMpGkJnVMRLAuzjc0LJ2A=="
   "resolved" "https://registry.npmjs.org/shiki/-/shiki-0.14.2.tgz"
   "version" "0.14.2"
