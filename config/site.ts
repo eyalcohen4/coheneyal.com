@@ -36,7 +36,7 @@ export const siteConfig = {
   ],
   posts: [
     {
-      title: "Why Does Next.js Is Re-Rendering the Whole Page On Route Change",
+      title: "Why Does Next.js Rerender the Whole Page On Route Change",
       description: "A common problem with Next.js and how to solve it",
       slug: "why-nextjs-is-rerendering",
     },
