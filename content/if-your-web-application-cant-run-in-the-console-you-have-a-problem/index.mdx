@@ -1,0 +1,259 @@
+---
+title: The CLI Litmus Test For Separating Concerns in Web Applications
+date: 2023-06-18
+description: Do you even separate, bro?
+image: "general/legohouse.webp"
+---
+
+A well-architected web application views its UI as a mere layer or "skin" over the core business logic.
+
+UI's are a way for users to interact with the underlying logic, but it doesn't need
+to influence the logic itself.
+
+Let's take this a step further: **could a user perform all operations in your web application from a console, if you decided to build one?**
+
+This can serve as good litmus test in my opinion.
+
+If you cant let users do the same actions they do in your web application from a console and vice versa,
+you are not separating your logic enough.
+
+## Why it's important?
+
+There are several advantages of separating UI's and business logic.
+
+- **Maintenance and Debugging** Bugs and user flows can be isolated and fixed without going through complex steps.
+
+- **Testing** You can test the UI and the logic independently, making tests more accurate and
+  easier to write.
+
+- **Reuse code** Isolated piecses can be reused in different parts of your application or even across applications, saving coding time and preventing duplication.
+
+- **Replaceability** You can update separate pieces without rewriting others. this leads to your application being adaptable to changing requirement, which is really important in our agile world.
+
+Let's see how those advantages are achieved in practice.
+
+---
+
+## First, A bad example
+
+This is a simplified example of the wrong way to structure your app.
+
+```tsx
+import React, { useState } from "react"
+import axios from "axios"
+import { useQuery } from "react-query"
+
+interface Pokemon {
+  name: string
+  url: string
+}
+
+function PokemonApp() {
+  const [search, setSearch] = useState("")
+
+  const { data: pokemon, isLoading } = useQuery<Pokemon[]>(
+    "pokemon",
+    async () => {
+      const { data } = await axios.get(
+        "https://pokeapi.co/api/v2/pokemon?limit=100"
+      )
+      return data.results
+    }
+  )
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value)
+  }
+
+  if (isLoading) return <div>Loading...</div>
+
+  const filteredPokemon = pokemon.filter((p) => p.name.includes(search))
+
+  return (
+    <div>
+      <input type="text" value={search} onChange={handleChange} />
+      <ul>
+        {filteredPokemon.map((pokemon) => (
+          <li key={pokemon.name}>{pokemon.name}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+export default PokemonApp
+```
+
+We built a fun little Pokemon App like a mini Pokemon encyclopedia.
+
+When you open it, it calls an API and grabs a list of all Pokemon. It can also pick a specific Pokemon and show its details when you click one.
+
+Users can also type in the name of their favorite Pokemon.
+The component will then look through the entire list to find a match and show only those ones.
+
+### Why is this a bad example?
+
+This code is an excellent example of putting all your eggs in one basket.
+And we all know how that ends :)
+
+Can I build a CLI app on top of this code? No, I probably can't. Our component is wearing too many hats.
+It's like a chef cooking, serving, washing dishes, and sweeping the floor afterward. It's a recipe for disaster.
+
+#### Difficult to test
+
+The current setup makes it challenging to test our code.
+
+To test the data fetching, we also have to render with the UI. To test the search functionality, we have to deal with data fetching.
+
+It's as if we're assessing a chef's cooking while testing his dishwashing ability.
+
+#### Hard to debug
+
+Debugging is a burden when we must deal with many concerns simultaneously.
+
+Say we have a bug that prevents a Pokemon's name from rendering. The issue could be a lousy API call, a flawed filtering logic, or a typo in the component.
+
+Pinpointing the root cause is like finding a needle in a haystack without clear separation. You'd need to run and debug the entire app to find the root cause.
+
+When you separate your concerns, you can isolate the problem by checking each part.
+This will lead to a shorter time to resolution, and way less of a headache.
+
+#### Impossible to reuse and replace
+
+Imagine a new feature request from your product manager: a separate page for detailed Pokemon information.
+
+With our current setup, we can't reuse our existing code. Our options are either to duplicate the code or to refactor it.
+
+Replacing a piece from our component will also be challenging. Tightly coupled code restricts us from modifying individual parts without affecting others.
+
+---
+
+## A better example
+
+Let's transform our Pokemon App by separating concerns, creating manageable pieces with clear responsibilities.
+
+### Splitting data fetching from UI
+
+The first step is separating data-fetching from UI.
+This lets us change our data source or UI independently and mock it for testing.
+
+```tsx
+const fetchPokemons = () => {
+  const { data } = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=100');
+    return data.results;
+}
+
+const usePokemons = () => {
+  return useQuery<Pokemon[]>('pokemon', fetchPokemons);
+};
+```
+
+Now, `fetchPokemon` fetches the data, and PokemonList displays it.
+We can test fetchPokemon without worrying about the UI and vice versa.
+
+We can even put a breakpoint on fetchPokemon to see what data it returns without even rendering the UI.
+
+### Decoupling the search functionality
+
+We'll also separate the search functionality into its own function.
+
+```tsx
+const filterPokemons = (pokemon: Pokemon[], search: string) => {
+  return pokemon.filter((p) => p.name.includes(search))
+}
+
+// We can now use this logic anywhere we want
+const allPokemon = await fetchPokemon()
+const foundPokemon = searchPokemon(allPokemon, "pika")
+```
+
+### Updating PokemonApp Component
+
+With the separate components and functions, our main `PokemonApp` component becomes much cleaner:
+
+```tsx
+function PokemonApp() {
+  const [search, setSearch] = useState("")
+  const { data: pokemon, isLoading } = usePokemon()
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value)
+  }
+
+  if (isLoading) return <div>Loading...</div>
+
+  const filteredPokemon = useFilteredPokemon(pokemon, search)
+
+  return (
+    <div>
+      <input type="text" value={search} onChange={handleChange} />
+      <PokemonList pokemon={filteredPokemon} />
+    </div>
+  )
+}
+```
+
+We're only concerned with managing state and user interactions in PokemonApp, delegating the data fetching to fetchPokemon, filtering to searchPokemon, and UI display to PokemonList and Pokemon.
+
+### Testing
+
+We can now test each piece of our app independently, without even rendering the UI.
+
+```js
+test("fetchPokemons", async () => {
+  const data = await fetchPokemons()
+  expect(data.length).toBe(100)
+})
+
+test("searchPokemon", () => {
+  const pokemon = [
+    { name: "pikachu" },
+    { name: "bulbasaur" },
+    { name: "charmander" },
+  ]
+  const filteredPokemon = searchPokemon(pokemon, "pika")
+  expect(filteredPokemon.length).toBe(1)
+  expect(filteredPokemon[0].name).toBe("pikachu")
+})
+```
+
+### Reusability
+
+Let's build a CLI app on top of our logic.
+
+```js
+const inquirer = require("inquirer")
+
+async function run() {
+  const allPokemon = await fetchPokemon()
+
+  const answers = await inquirer.prompt([
+    {
+      type: "input",
+      name: "pokemonName",
+      message: "Which Pokemon are you looking for?",
+    },
+  ])
+
+  const foundPokemon = filterPokemons(allPokemon, answers.pokemonName)
+
+  console.log(foundPokemon)
+}
+
+run()
+```
+
+Our decoupled design enables easy code reuse in different contexts.
+We can now use the same logic to build another web, mobile, desktop, or even server app - anywhere that javascript allows us to run.
+
+### Conclusion
+
+We used a simple example, but this concept applies to applications with thousands of components and functions.
+
+Ultimately, our aim should be to construct applications where each piece has its defined role.
+
+Your code can be a well-organized kitchen:
+the chef, the waitperson, and the dishwasher have unique responsibilities.
+
+Think about it when you're about to write your next web application:
+Can I re-use the code to create a CLI tool without changing much of the code?

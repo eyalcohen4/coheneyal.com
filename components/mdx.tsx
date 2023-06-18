@@ -31,6 +31,7 @@ function RoundedImage(props) {
 const components = {
   Image: RoundedImage,
   a: CustomLink,
+  p: (props) => <p {...props} />,
 }
 
 interface MdxProps {
