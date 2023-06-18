@@ -36,6 +36,12 @@ export const siteConfig = {
   ],
   posts: [
     {
+      title: "Can Your Code Power Both Web App and CLI?",
+      description:
+        "On the importance of the importance of effective separation of concerns",
+      slug: "can-your-code-power-both-a-web-app-and-a-cli",
+    },
+    {
       title: "Why Does Next.js Rerender the Whole Page On Route Change",
       description: "A common problem with Next.js and how to solve it",
       slug: "why-nextjs-is-rerendering",
