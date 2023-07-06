@@ -38,7 +38,7 @@ export const siteConfig = {
     {
       title: "Can Your Code Power Both Web App and CLI?",
       description:
-        "On the importance of the importance of effective separation of concerns",
+        "On the importance of effective separation of concerns in web development",
       slug: "can-your-code-power-both-a-web-app-and-a-cli",
     },
     {

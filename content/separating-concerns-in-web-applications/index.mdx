@@ -1,34 +1,34 @@
 ---
 title: Can Your Code Power Both Web App and CLI?
 date: 2023-06-18
-description: Do you even separate, bro?
+description: On the importance of effective separation of concerns in web development
 image: "general/legohouse.webp"
 ---
 
 A well-architected web application views its UI as a mere layer or "skin" over the core business logic.
 
-UI's are a way for users to interact with the underlying logic, but it doesn't need
+UI are a way for users to interact with the underlying logic, but it doesn't need
 to influence the logic itself.
 
 Let's take this a step further: **could a user perform all operations in your web application from a console, if you decided to build one?**
 
-This can serve as good litmus test in my opinion.
+This can serve as a good litmus test in my opinion.
 
 If you cant let users do the same actions they do in your web application from a console and vice versa,
 you are not separating your logic enough.
 
 ## Why it's important?
 
-There are several advantages of separating UI's and business logic.
+There are several advantages of separating UI and business logic.
 
 - **Maintenance and Debugging** Bugs and user flows can be isolated and fixed without going through complex steps.
 
 - **Testing** You can test the UI and the logic independently, making tests more accurate and
   easier to write.
 
-- **Reuse code** Isolated piecses can be reused in different parts of your application or even across applications, saving coding time and preventing duplication.
+- **Reuse code** Isolated pieces can be reused in different parts of your application or even across applications, saving coding time and preventing duplication.
 
-- **Replaceability** You can update separate pieces without rewriting others. this leads to your application being adaptable to changing requirement, which is really important in our agile world.
+- **Replaceability** You can update separate pieces without rewriting others. this leads to your application being adaptable to changing requirements, which is important in our agile world.
 
 Let's see how those advantages are achieved in practice.
 
@@ -103,7 +103,7 @@ It's like a chef cooking, serving, washing dishes, and sweeping the floor afterw
 
 The current setup makes it challenging to test our code.
 
-To test the data fetching, we also have to render with the UI. To test the search functionality, we have to deal with data fetching.
+To test the search functionality, we have to deal with data fetching. but we must render the UI to test the data fetching.
 
 It's as if we're assessing a chef's cooking while testing his dishwashing ability.
 
@@ -130,32 +130,32 @@ Replacing a piece from our component will also be challenging. Tightly coupled c
 
 ## A better example
 
-Let's transform our Pokemon App by separating concerns, creating manageable pieces with clear responsibilities.
+Let's transform our Pokemon App by separating concerns, and creating manageable pieces with clear responsibilities.
 
 ### Splitting data fetching from UI
 
 The first step is separating data-fetching from UI.
-This lets us change our data source or UI independently and mock it for testing.
+This lets us independently change our data source or UI and mock it for testing.
 
 ```tsx
 const fetchPokemons = () => {
   const { data } = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=100');
-    return data.results;
+  return data.results as Array<Pokemon>;
 }
 
 const usePokemons = () => {
-  return useQuery<Pokemon[]>('pokemon', fetchPokemons);
+  return useQuery('pokemon', fetchPokemons);
 };
 ```
 
 Now, `fetchPokemon` fetches the data, and PokemonList displays it.
 We can test fetchPokemon without worrying about the UI and vice versa.
 
-We can even put a breakpoint on fetchPokemon to see what data it returns without even rendering the UI.
+We can even put a breakpoint on fetchPokemon to see what data it returns without running the app.
 
 ### Decoupling the search functionality
 
-We'll also separate the search functionality into its own function.
+We'll also separate the search functionality into a function.
 
 ```tsx
 const filterPokemons = (pokemon: Pokemon[], search: string) => {
@@ -197,7 +197,7 @@ We're only concerned with managing state and user interactions in PokemonApp, de
 
 ### Testing
 
-We can now test each piece of our app independently, without even rendering the UI.
+We can now test each piece of our app independently.
 
 ```js
 test("fetchPokemons", async () => {

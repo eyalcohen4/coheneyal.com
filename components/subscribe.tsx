@@ -12,7 +12,7 @@ export function Subscribe() {
       className="h-10 flex gap-2 items-center justify-center w-auto"
     >
       <Link
-        href="https://coheneyal.substack.com/about"
+        href="https://newsletter.developertoolsindex.com/subscribe"
         target="_blank"
         rel="noopener noreferrer"
         className="h-8 flex gap-2 items-center justify-center w-auto decoration-none"
