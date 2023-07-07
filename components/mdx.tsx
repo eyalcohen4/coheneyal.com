@@ -32,6 +32,11 @@ const components = {
   Image: RoundedImage,
   a: CustomLink,
   p: (props) => <p {...props} />,
+  q: (props) => (
+    <div className="border-1 border-yellow-200 p-4">
+      <q className="text-neutral-500 dark:text-neutral-400" {...props} />
+    </div>
+  ),
 }
 
 interface MdxProps {

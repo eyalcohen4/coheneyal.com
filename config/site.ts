@@ -70,6 +70,12 @@ export const siteConfig = {
   ],
   projects: [
     {
+      title: "The Developer Tools Index",
+      description:
+        "An index I created oof publicly traded developer tools companies, and a newsletter I write about it",
+      href: "https://newsletter.developertoolsindex.com",
+    },
+    {
       title: "Desert Lion",
       description: "A time travel debugger and monitoring tool for the web",
       href: "https://desertlion.io",
