@@ -26,8 +26,8 @@ const Curation = () => {
               An inspiring story from Bezos on what important. main quote is:
             </p>
             <q>
-              "Jeff, one day you’ll understand that it’s harder to be kind than
-              clever."
+              Jeff, one day you’ll understand that it’s harder to be kind than
+              clever.
             </q>
           </li>
           <li>
@@ -39,8 +39,8 @@ const Curation = () => {
               will merge.
             </p>
             <q>
-              "It is a failure of human imagination and human arrogance to
-              assume that we will never build things smarter than ourselves."
+              It is a failure of human imagination and human arrogance to assume
+              that we will never build things smarter than ourselves.
             </q>
           </li>
           <li>
@@ -59,9 +59,9 @@ const Curation = () => {
             <p>
               The best book I've ever read. It teaches gratitude, the fragility
               of life, and appriciation to it. <br />
-              "Tuesdays with Morrie is a magical chronicle of their time
+              Tuesdays with Morrie is a magical chronicle of their time
               together, through which Mitch shares Morrie's lasting gift with
-              the world. "
+              the world.
             </p>
           </li>
           <li>
