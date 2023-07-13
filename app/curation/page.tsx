@@ -31,6 +31,19 @@ const Curation = () => {
             </q>
           </li>
           <li>
+            <a href="https://blog.samaltman.com/the-merge">
+              The Merge - Sam Altman
+            </a>
+            <p>
+              A post from 2017 of Sam Altman on when and how humans and machines
+              will merge.
+            </p>
+            <q>
+              "It is a failure of human imagination and human arrogance to
+              assume that we will never build things smarter than ourselves."
+            </q>
+          </li>
+          <li>
             <a href="https://www.artlebedev.com/mandership/167/">
               Progressive JPEG Method for Time Managment
             </a>
@@ -81,6 +94,16 @@ const Curation = () => {
           <p>Things that I find useful in my life.</p>
         </div>
         <ul>
+          <li>
+            <a href="http://paulgraham.com/startupideas.html">
+              How TO Get Startup Ideas - Paul Graham
+            </a>
+            <q>
+              The way to get startup ideas is not to try to think of startup
+              ideas. It's to look for problems, preferably problems you have
+              yourself.
+            </q>
+          </li>
           <li>
             <a href="https://www.taniarascia.com/">Tania Rascia Blog</a>
             <p>Amazing content and guides for developers from Tanis Rascia.</p>
