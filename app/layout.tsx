@@ -34,6 +34,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <>
       <html lang="en" suppressHydrationWarning>
         <head>
+          <meta
+            name="google-site-verification"
+            content="wYus2_TaexZZex928MiH95zZBnpYjAEVfd0x5Kg-C_k"
+          />
           <script
             defer
             data-domain="coheneyal.com"
