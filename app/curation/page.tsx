@@ -31,6 +31,21 @@ const Curation = () => {
             </q>
           </li>
           <li>
+            <a href="https://sive.rs/pnt">
+              The past is not true - Derek Sivers
+            </a>
+            <p>
+              A beuaitful short story from Derek Sivers about our prespctives of
+              the past
+            </p>
+            <q>
+              We think of the past like it’s a physical fact - like it’s real.
+              But the past is what we call our memory and stories about it.
+              Imperfect memories, and stories built on one interpretation of
+              incomplete information. That’s “the past”.
+            </q>
+          </li>
+          <li>
             <a href="https://blog.samaltman.com/the-merge">
               The Merge - Sam Altman
             </a>
