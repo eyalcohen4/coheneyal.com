@@ -3,6 +3,8 @@ import { Posts } from "@/components/posts"
 import { Projects } from "@/components/projects"
 import { Talks } from "@/components/talks"
 import { Work } from "@/components/work"
+import { Analytics } from '@vercel/analytics/react';
+
 
 export default function IndexPage() {
   return (

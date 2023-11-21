@@ -1,5 +1,6 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
+import { Analytics } from "@vercel/analytics/react"
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <div className="relative flex min-h-screen flex-col max-w-3xl m-auto py-8">
               <SiteHeader />
               <div className="flex-1">{children}</div>
+              <Analytics />
             </div>
             <TailwindIndicator />
           </ThemeProvider>
