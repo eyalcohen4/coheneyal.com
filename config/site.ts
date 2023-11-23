@@ -72,7 +72,7 @@ export const siteConfig = {
     {
       title: "The Developer Tools Index",
       description:
-        "An index I created oof publicly traded developer tools companies, and a newsletter I write about it",
+        "An index I created of publicly traded developer tools companies, along with a newsletter covering it",
       href: "https://newsletter.developertoolsindex.com",
     },
     {
