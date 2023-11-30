@@ -5,44 +5,46 @@ description: A step by step guide to adding turborepo to your project
 image: "shadcn/dashboard.png"
 ---
 
-I've recently built an open-source Getting Things Done style [task management app](https://github.com/eyalcohen4/GTD) for myself.
+I've recently built an open-source task management [app](https://github.com/eyalcohen4/GTD) in the "Getting Things Done" style.
 
-When I came across the amazing [novel.sh](https://novel.sh) editor made by [Steven Tey](https://twitter.com/steventey), I really wanted to plug it into my app.
+When I came across the fantastic [novel.sh](https://novel.sh) WYSIWYG AI editor made by [Steven Tey](https://twitter.com/steventey), I wanted to plug it into my app.
 
-But there was a problem: Novel wasn't as a library, it was a website. After speaking with Steven, we've decided to make it an npm package.
+But there was a problem: novel was written as a website and unavailable as an installable npm package.
+So we've decided to make it an npm package.
 
-We still wanted to keep the website running, so the decision was to convert the project to a monorepo.
+We still wanted to keep the website running. We decided to convert the project to a monorepo using turborepo.
 
-And for that, we've used the most modern monorepo tool - [turborepo](https://turborepo.com/).
+You can see the PR here. It's gigantic, and include 78 files changed. Thanks to the help of Steven I was able to get it out of the door.
 
-You can see the PR [here](https://github.com/steven-tey/novel/pull/87). It's gigantic, and include 78 files changed. Thanks to the help of Steven I was able to get it out of the door.
+You can see the PR [here](https://github.com/steven-tey/novel/pull/87). It's gigantic and includes 78 changed files.
+
+Thanks to Steven's help, we got it out of the door.
 
 <Image src={`/images/turborepo/pr.png`} width={1600} height={840} />
 
-## What is Turbo?
+## What is turbo?
 
-[Turbo](https://github.com/vercel/turbo) is an incremental _bundler_ and _build system_ optimized for JavaScript and TypeScript, written in Rust.
+[turbo](https://github.com/vercel/turbo) is an incremental _bundler_ and _build system_ optimized for JavaScript and TypeScript, written in Rust.
 
 It consists of 2 parts:
 
-- Turborepo: A CLI tool that runs on your machine, and is responsible for building your project.
+- Turborepo: A CLI tool that runs on your machine and is responsible for building your project.
 - Turbopack: an incremental bundler (the successor to Webpack)
 
-It was built by [Jared Palmer](https://twitter.com/jaredpalmer), who is also the creator of [Formik](https://formik.org/).
-Monorepo was acquired by [Vercel](https://vercel.com/) in 2021.
+[Jared Palmer](https://twitter.com/jaredpalmer), who is also the creator of [Formik](https://formik.org/), built Turbo,
+and [Vercel](https://vercel.com/) acquired it in 2021.
 
-I've decided to write this guide to help you understand how to convert your project to a monorepo.
+I've written this guide to help others convert their project into a mono repo.
 
 ## The Goal
 
-Our goal is to convert a single next.js project to a monorepo with 2 separate apps, and share packages for shared components, logic, and config between them.
-The use case we'll mimic is a simple website with 2 sides - A public facing and a dashboard.
-They'll both share a common UI library, and a common config.
+We aim to convert a single next.js project to a monorepo with two separate apps and a shared UI package that both will use.
+The use case we'll mimic is a simple website with two sides - A public-facing and a dashboard.
 
 We will start with a single next.js project, and convert it to a monorepo with separate packages for shared components and logic between 2 apps.
-I love using the [next-template](https://github.com/shadcn-ui/next-template) by Shadcn for it's simplicity, so we will use it as a starting point.
+I love using the [next-template](https://github.com/shadcn-ui/next-template) by Shadcn for its simplicity. we will use it as a starting point.
 
-I recommend you to follow the post along with the [repository](https://github.com/eyalcohen4/step-by-step-guide-to-adding-turborepo-to-existing-project) I've created. each step is a different branch.
+You can also see the result in this [repository](https://github.com/eyalcohen4/turborepo-nextjs-example), after we converted a single project to a monorepo.
 
 ## Preqrequisites
 
@@ -50,7 +52,7 @@ I recommend you to follow the post along with the [repository](https://github.co
 - Node.js installed locally
 - A basic understanding of Next.js and React
 
-## Step 1: Initiate the Project
+## Step 1: Creating the Project
 
 We start by creating a new next.js application using the shadcn next-template:
 
@@ -58,19 +60,19 @@ We start by creating a new next.js application using the shadcn next-template:
 $ npx create-next-app -e https://github.com/shadcn/next-template
 ```
 
-Let's install few components that will help us demonstrate our app:
+Let's install a few components that will help us demonstrate our app:
 
 ```bash
 $ npx shadcn-ui add dialog input label
 ```
 
-As we start, we have a single next.js project, with a single package.json file. This will be our public side application.
+As we start, we have a single next.js project, with a single package.json file.
 
 To demonstrate turborepo, and make sure our package is working, we'll add a simple `SignIn` component to our project.
 It'll be used in both our website and dashboard apps.
 
 Create a new file inside the components folder, `sign-in.tsx`.
-Go ahad and paste this component inside it:
+Go ahead and paste this component inside it:
 
 ```tsx title="components/sign-in.tsx"
 "use client"
@@ -136,7 +138,7 @@ export const SignIn = () => {
 }
 ```
 
-Now let's rener it. replace `app/page.tsx` content with the following:
+Now, let's render it inside the app. Replace `app/page.tsx` content with the following:
 
 ```tsx title="app/page.tsx"
 import { SignIn } from "@/components/sign-in"
@@ -150,7 +152,7 @@ export default function IndexPage() {
 }
 ```
 
-and The sign in button trigger a simple user authentication modal. It should look similar to this:
+The sign-in button triggers a simple user authentication modal. It should look similar to this:
 
 <Image src={`/images/turborepo/singin_button.gif`} width={1800} height={1200} />
 
@@ -162,7 +164,7 @@ $ pnpm run dev
 
 ## Step 2: Adding turborepo
 
-In order to render SignIn in 2 different apps, we'd want to move it to a separate package.
+To render the `SignIn` component in two different apps, we'd want to move it to a separate package.
 That's where turborepo comes in.
 
 We'll start by adding turborepo to our project.
@@ -185,33 +187,34 @@ The second step is to create a `turbo.json` file in the repository root folder:
 }
 ```
 
-Now we can run `turbo dev` instead to start our project.
+We can now run `turbo dev` instead to start our project.
 
 ```bash
 $ turbo dev
 ```
 
-If everything was successfull, you should see a similar output:
+If everything was successful, you should see a similar output:
 
 <Image src="/images/turborepo/turbo_dev.png" width={1800} height={1200} />
 
-## Step 3: Convert The Project to Monorepo
+## Step 3: Convert The Project to a monorepo
 
-Now that we have turborepo setup, we can start converting our project to a monorepo.
-turborepo is built on top of workspaces, which are package manager feature, like yarn or pnpm.
+Now that we have turborepo setup, we can convert our project to a monorepo.
+
+Uner the hood, turborepo uses the [workspaces](https://turbo.build/repo/docs/handbook/workspaces) feature package managers like pnpm and yarn provide.
 
 > Workspaces are the building blocks of your monorepo.
 > Each app and package you add to your monorepo will be inside its own workspace.
 > [Turborepo Docs](https://turbo.build/repo/docs/handbook/workspaces)
 
-Workspaces are defined through `package.json` or `pnpm-workspace.yaml` file.
+We define workspaces through `package.json` or `pnpm-workspace.yaml` file.
 
-Each workspace should have his own package.json file inside as well.
+Each workspace must have its `package.json` file inside as well.
 
-The convention turborepo follow is to create a `packages` folder for shared libraries, and a `apps` folder for apps.
-That's customisable, but we'll follow it for this guide.
+A popular convention for monorepos is to create a `packages` folder for shared libraries, and a `apps` folder for apps.
+That's customizable, but we'll follow it for this guide.
 
-To convert our single project to a monorepo, we need 3 steps:
+To convert our single project to a monorepo, we need three steps:
 
 1. **Move our single app to an `apps` folder, where our web applications will be**
 2. **Define our workspace by creating a `package.json` in the root folder**
@@ -249,7 +252,7 @@ The current repo structure should look like this:
 [----] website
 ```
 
-One last step we'd need is to update the names of the apps in the workspace.
+The next step is to update the names of the apps in the workspace.
 
 ```json title="apps/dashboard/package.json"
 {
@@ -293,8 +296,8 @@ packages:
 
 ### 3. Create the packages folder
 
-We'd now want to create the packages folder, where we'll put our shared components and logic.
-We can go ahad and create it along with the ui package
+We'd now want to create the packages folder to put our shared components in.
+Run this command to create it:
 
 ```bash
   $ mkdir -p packages/ui/components
@@ -310,7 +313,7 @@ Our repo structure should look like this now:
 [----] ui
 ```
 
-At the package/ui folder, go ahad and create a `package.json` file inside the package/ui, and add the following content:
+At the package/ui folder, go ahead and create a `package.json` file inside the package/ui, and add the following content:
 
 ```json title="packages/ui/package.json"
 {
@@ -320,19 +323,19 @@ At the package/ui folder, go ahad and create a `package.json` file inside the pa
 }
 ```
 
-We've now created the monorepo strcuture.
+We've now created the monorepo structure.
 
 ## Step 4: Create the UI Package Infrastructure
 
-Let's create our UI package so we can share our SignIn component between our apps.
+Let's create our UI package to share our SignIn component between our apps.
 
-There are few things we need to do:
+There are a few things we need to do:
 
 - **Move the SignIn component to the ui package**
 - **Install dependencies and add build/dev scripts**
 - **Add config files for typescript and tailwind**
 
-We'll start by copiyng the SignIn component to the ui package, along with the ui folder.
+We'll start by copying the SignIn component to the UI package and the UI folder.
 
 ```bash
 $ cp -r apps/website/components/sign-in.tsx apps/website/components/ui apps/website/lib/utils.ts ./packages/ui/components
@@ -340,14 +343,11 @@ $ cp -r apps/website/components/sign-in.tsx apps/website/components/ui apps/webs
 
 ### Dependencies & Scripts
 
-Web applications who will use our ui package must have React installed.
+Web applications that will use our UI package must have React installed.
 We can enforce it via the `peerDependencies` `package.json` property.
-We'll also need some other dependencies from our website app, so we'll migrate them to the ui package as well.
-Add the following to the ui package.json:
+We'll also need some other dependencies from our website app, so we'll also migrate them to the UI package.
 
-This is not a must for any turbrepo project, but in our setup we'd need it.
-
-Inside the `packages/ui` folder, run:
+Add the following to the UI package.json:
 
 ```bash title="packages/ui"
 $ pnpm add @radix-ui/react-dialog @radix-ui/react-label @radix-ui/react-slot tailwindcss class-variance-authority clsx lucide-react sharp tailwind-merge tailwindcss-animate
@@ -355,13 +355,13 @@ $ pnpm add -D tsup typescript postcss prettier eslint eslint-config-prettier esl
 ```
 
 Now, we need to bundle the app using typescript and tailwind.
-For typescript, I love use [tsup](https://tsup.egoist.dev/), which is a zero-config bundler for typescript.
+For typescript, I love to use [tsup](https://tsup.egoist.dev/), which is a zero-config bundler for typescript.
 
-Edit the ui package `package.json` file in 2 ways:
+We now need to edit the UI package `package.json` file in 2 ways:
 
 1. **Add build & dev scripts**
 2. **Add react as peerDependency**
-   We need React as a peerDependencies, because we don't want to bundle it with our package.
+   We need React as a peerDependencies, because we want to avoid bundling it with our package, as it's already bundled with our apps.
    Consuming apps must have it installed, and we'll get a warning if they don't.
 
 Add the following to the ui `package.json` file:
@@ -380,10 +380,10 @@ Add the following to the ui `package.json` file:
 
 ### Adding Config Files
 
-To run typescript and tailwind, we need to define our build configs in order to bundle our package.
+To run typescript and tailwind, we need to define our build configs to bundle our package.
 The required tools are: `tsup`, `typesscript`, `tailwind`, and `postcss`.
 
-Copy and paste the following files to the ui package:
+Copy and paste the following files to the UI package:
 
 ```ts title="packages/ui/tsup.config.ts"
 import { Options, defineConfig } from "tsup"
@@ -453,9 +453,8 @@ module.exports = {
 }
 ```
 
-There's one last thing we need to add for next.js 13, and is that it'll transpile the package for us.
+There's one last thing we need to add for next.js 13 so it'll transpile the package for us.
 
-Add the following
 Add the following line to `apps/website/next.config.mjs` and `apps/dashboard/next.config.mjs`:
 
 ```js
@@ -466,7 +465,7 @@ We're now ready to run the package and see it in action!
 
 ## Step 5: Using The UI Package in the Apps
 
-As we have everything ready, we need to add an export file for the ui package.
+As everything is ready, we need to add an export file for the ui package.
 
 ```ts title="packages/ui/index.ts"
 export { SignIn } from "./components/sign-in"
@@ -483,8 +482,8 @@ You should see similar output:
 
 <Image src="/images/turborepo/successfull_run.png" width={1800} height={1200} />
 
-We can now add the ui package to our website and dashboard apps.
-In both apps, add the ui package as a dependency to the `package.json` files:
+We can now add the UI package to our website and dashboard apps.
+In both apps, add the UI package as a dependency to the `package.json` files:
 
 ```json title="apps/website/package.json | apps/dashboard/package.json"
 {
@@ -496,30 +495,31 @@ In both apps, add the ui package as a dependency to the `package.json` files:
 
 Run `pnpm install` to install on both folders.
 
-We can now replace the import the SignIn component from our ui package, and use it in our website app.
+We can now replace the import of the `SignIn` component with the one in our UI package, and use it in our website app.
 Inside `apps/website/pages/index.tsx` and `apps/dashboard/pages/index.tsx`, replace the import of the SignIn component with the following:
 
 ```
 import { SignIn } from "ui"
 ```
 
-You should now see the same sign in button as before, but this time it's coming from the ui package.
+You should now see the same sign-in button as before, but this time, it's coming from the UI package.
 
-Now, Let's change the sign in button color, to make sure it's updated on both apps.
+To ensure we are using the same `SignIn` component, we can change the button color and see it updated on both apps.
+This is also the premise - save duplicates and coding time.
 
-Go to `packages/ui/components/sign-in.tsx`, and change the button variant to `destructive`, in line 20:
+Go to `packages/ui/components/sign-in.tsx`, line 20, and change the button variant to `destructive`:
 
 ```tsx title="packages/ui/components/sign-in.tsx:20"
 <Button className="w-24">Sign In</Button>
 ```
 
-The last step would be to re-build the ui package. You can also re-build it on every change using `pnpm run dev`.
+The last step would be to re-build the UI package. You can also re-build it on every change using `pnpm run dev`.
 
 ```bash title="packages/ui"
 $ pnpm run dev
 ```
 
-Open 2 other terminals and run:
+Open 2 new terminals and run the two apps:
 
 ```bash title="apps/website"
 $ pnpm run dev
@@ -529,19 +529,22 @@ $ pnpm run dev
 $ pnpm run dev
 ```
 
-We should now see this change reflected in both apps:
+We should now see the changes reflected
 
 <Image src="/images/turborepo/final-step.png" width={1800} height={1200} />
 
-Feel free to change the variant and see the changes on both apps.
+You can change more stuff and see the changes on both apps.
 
 ## Summary
 
-We've now converted our single next.js project to a monorepo with 2 separate apps, and shared packages for our UI components.
+We've now converted our single next.js project to a monorepo with two separate apps and shared packages for our UI components.
 
-You can also publish the ui package to npm, and use it in other projects, outside of the monorepo.
+You can also publish the ui package to npm and use it in other projects outside the monorepo.
 
-You can also create more shared packages and optimize your monorepo further - config, logic, and what ever make sense to your company.
+You can also create more shared packages and optimize your mono repo further - config, logic, and whatever makes sense to your company.
 
-I hope you've enjoyed this guide, and that it helped you understand how to convert your project to a monorepo.
-The repository is available [here]
+I hope you've enjoyed this guide and that it helped you understand how to convert your project to a mono repo.
+
+The repository with the final result is available [here](https://github.com/eyalcohen4/turborepo-nextjs-example).
+
+_If you have any question, feel free to send it to me at eyal@coheneyal.com or on [twitter](https://twitter.com/cohen_eyal4)._
