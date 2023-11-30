@@ -51,7 +51,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             fontSans.variable
           )}
         >
-          <ThemeProvider attribute="class" defaultTheme="dark">
+          <ThemeProvider attribute="class" defaultTheme="light">
             <div className="relative flex min-h-screen flex-col max-w-3xl m-auto py-8">
               <SiteHeader />
               <div className="flex-1">{children}</div>

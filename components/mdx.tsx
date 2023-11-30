@@ -2,6 +2,7 @@ import "@/styles/mdx.css"
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
+import Script from "next/script"
 import { useMDXComponent } from "next-contentlayer/hooks"
 
 import { cn } from "@/lib/utils"
@@ -29,6 +30,17 @@ function RoundedImage(props) {
 }
 
 const components = {
+  Script: (props) => {
+    console.log("yoyo", props)
+    return (
+      <div
+        dangerouslySetInnerHTML={{
+          __html: ` 
+      <script src="${props.src}" /> `,
+        }}
+      />
+    )
+  },
   Image: RoundedImage,
   a: CustomLink,
   p: (props) => <p {...props} />,

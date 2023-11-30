@@ -63,13 +63,15 @@ export default async function Blog({ params }) {
   }
 
   return (
-    <section className="pt-8 md:py-8 md:px-0 w-full prose dark:prose-invert">
+    <section className="pt-8 md:py-8 md:px-0 w-full prose dark:prose-invert text-black">
       <div>
-        <h1 className="font-bold text-3xl">
-          <Balancer>{post.title}</Balancer>
-        </h1>
-        <div className="grid grid-cols-[auto_1fr_auto] items-center mt-4 mb-8 text-muted-foreground">
-          {dayjs(post.date).format("MMM DD, YYYY")}
+        <div className="grid gap-1">
+          <h1 className="font-medium mb-0 text-2xl tracking-tighter">
+            <Balancer>{post.title}</Balancer>
+          </h1>
+          <div className="text-muted-foreground text-sm">
+            {dayjs(post.date).format("MMM DD, YYYY")}
+          </div>
         </div>
         <Image
           width={1600}
