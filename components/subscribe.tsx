@@ -15,7 +15,7 @@ export function Subscribe() {
         href="https://coheneyal.substack.com/about"
         target="_blank"
         rel="noopener noreferrer"
-        className="h-8 flex gap-2 items-center justify-center w-auto decoration-none"
+        className="h-8 flex gap-2 items-center text-white justify-center w-auto decoration-none"
         style={{
           textDecoration: "none",
         }}
