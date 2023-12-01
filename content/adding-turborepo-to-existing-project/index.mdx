@@ -463,13 +463,12 @@ We're now ready to run the package and see it in action!
 
 ## Step 5: Using The UI Package in the Apps
 
-As everything is ready, we'll add an export file for the ui package.
+To use the `SignIn` component, we'll create a `index.ts` file to export it from the ui package.
 
 ```ts title="packages/ui/index.ts"
 export { SignIn } from "./components/sign-in"
 ```
 
-We are now ready to build the ui package.
 Run the following command inside the `packages/ui` folder
 
 ```bash title="packages/ui"
