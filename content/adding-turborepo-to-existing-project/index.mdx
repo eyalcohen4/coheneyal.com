@@ -46,7 +46,7 @@ I love using the [next-template](https://github.com/shadcn-ui/next-template) by 
 
 You can also see the result in this [repository](https://github.com/eyalcohen4/turborepo-nextjs-example), after we converted a single project to a monorepo.
 
-## Preqrequisites
+## Prerequisites
 
 - Git installed locally
 - Node.js installed locally
@@ -201,7 +201,7 @@ If everything was successful, you should see a similar output:
 
 Now that we have turborepo setup, we can convert our project to a monorepo.
 
-Uner the hood, turborepo uses the [workspaces](https://turbo.build/repo/docs/handbook/workspaces) feature package managers like pnpm and yarn provide.
+Under the hood, turborepo uses the [workspaces](https://turbo.build/repo/docs/handbook/workspaces) feature package managers like pnpm and yarn.
 
 > Workspaces are the building blocks of your monorepo.
 > Each app and package you add to your monorepo will be inside its own workspace.
@@ -331,7 +331,7 @@ Let's create our UI package to share our SignIn component between our apps.
 
 There are a few things we need to do:
 
-- **Move the SignIn component to the ui package**
+- **Move the `SignIn` component to the UI package**
 - **Install dependencies and add build/dev scripts**
 - **Add config files for typescript and tailwind**
 
@@ -360,8 +360,8 @@ For typescript, I love to use [tsup](https://tsup.egoist.dev/), which is a zero-
 We now need to edit the UI package `package.json` file in 2 ways:
 
 1. **Add build & dev scripts**
-2. **Add react as peerDependency**
-   We need React as a peerDependencies, because we want to avoid bundling it with our package, as it's already bundled with our apps.
+2. **Add react as peerDependency**:
+   We need React as a `peerDependency, because we want to avoid bundling it with our package, as it's already bundled with our apps.
    Consuming apps must have it installed, and we'll get a warning if they don't.
 
 Add the following to the ui `package.json` file:
@@ -380,7 +380,7 @@ Add the following to the ui `package.json` file:
 
 ### Adding Config Files
 
-To run typescript and tailwind, we need to define our build configs to bundle our package.
+To run typescript and tailwind, we must define our build configs to bundle our package.
 The required tools are: `tsup`, `typesscript`, `tailwind`, and `postcss`.
 
 Copy and paste the following files to the UI package:
@@ -465,7 +465,7 @@ We're now ready to run the package and see it in action!
 
 ## Step 5: Using The UI Package in the Apps
 
-As everything is ready, we need to add an export file for the ui package.
+As everything is ready, we'll add an export file for the ui package.
 
 ```ts title="packages/ui/index.ts"
 export { SignIn } from "./components/sign-in"
@@ -513,7 +513,7 @@ Go to `packages/ui/components/sign-in.tsx`, line 20, and change the button varia
 <Button className="w-24">Sign In</Button>
 ```
 
-The last step would be to re-build the UI package. You can also re-build it on every change using `pnpm run dev`.
+The last step would be to rebuild the UI package. You can also re-build it on every change using `pnpm run dev`.
 
 ```bash title="packages/ui"
 $ pnpm run dev
@@ -547,4 +547,4 @@ I hope you've enjoyed this guide and that it helped you understand how to conver
 
 The repository with the final result is available [here](https://github.com/eyalcohen4/turborepo-nextjs-example).
 
-_If you have any question, feel free to send it to me at eyal@coheneyal.com or on [twitter](https://twitter.com/cohen_eyal4)._
+_If you have any questions, feel free to send them to me at eyal@coheneyal.com or on [twitter](https://twitter.com/cohen_eyal4)._
