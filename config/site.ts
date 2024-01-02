@@ -233,7 +233,7 @@ export const siteConfig = {
     },
   ],
   links: {
-    twitter: "https://twitter.com/eyalc4",
+    twitter: "https://twitter.com/cohen_eyal4",
     github: "https://github.com/eyalcohen4",
     linkedin: "https://www.linkedin.com/in/eyal-cohen-63096810a/",
     stackoverflow: "https://stackoverflow.com/users/5716723/eyal-cohen",
