@@ -59,15 +59,6 @@ const Curation = () => {
             </q>
           </li>
           <li>
-            <a href="https://www.artlebedev.com/mandership/167/">
-              Progressive JPEG Method for Time Managment
-            </a>
-            <p>
-              That is really changed the way I work - make a project 100%
-              complete, even if it's 4% of the details.
-            </p>
-          </li>
-          <li>
             <a href="https://www.amazon.com/Tuesdays-Morrie-Greatest-Lesson-Anniversary/dp/076790592X">
               Tuesday with Morrie
             </a>
@@ -101,6 +92,24 @@ const Curation = () => {
             <p>
               very resourcesful and step by step guides for agile design
               thinking. by Alexander Cowan.
+            </p>
+          </li>
+          <li>
+            <a href="https://longform.asmartbear.com/strategic-planning/">
+              Quarterly strategic planning using the fairytale structure
+            </a>
+            <p>
+              Jason Cohen, the legend being WPEngine, on their fairytale
+              structure for strategic planning.
+            </p>
+          </li>
+          <li>
+            <a href="https://www.artlebedev.com/mandership/167/">
+              Progressive JPEG Method for Time Managment
+            </a>
+            <p>
+              That is really changed the way I work - make a project 100%
+              complete, even if it's 4% of the details.
             </p>
           </li>
         </ul>
