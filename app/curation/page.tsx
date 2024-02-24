@@ -79,6 +79,18 @@ const Curation = () => {
               and not seeing their hidden complexities
             </p>
           </li>
+          <li>
+            <a href="https://bryce.vc/post/64889707700/most-people-wont">
+              Most People Won't - Bryce Roberts
+            </a>
+            <p>
+              Most people want to be fit, most people aren’t. <br /> Most people
+              want to build a successful business, most people won’t. <br />{" "}
+              Most people want to be the best version of themselves, most people
+              aren’t. <br />
+              Most people won’t. Which means those that do change everything.
+            </p>
+          </li>
         </ul>
         <div>
           <h2>Methods</h2>
@@ -127,6 +139,16 @@ const Curation = () => {
               ideas. It's to look for problems, preferably problems you have
               yourself.
             </q>
+          </li>
+          <li>
+            <a href="https://github.com/charlax/professional-programming">
+              Professional Programming - Charles-Axel Dein
+            </a>
+            <p>
+              A collection of full-stack resources for programmers. A very
+              comprehensive list of resources for becoming a more proficient
+              developers. timeless and valuable.
+            </p>
           </li>
           <li>
             <a href="https://www.taniarascia.com/">Tania Rascia Blog</a>
